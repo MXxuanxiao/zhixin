@@ -9,12 +9,17 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "FindViewController.h"
+#import "SinaViewController.h"
+#import <UMSocial.h>
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *userID;
 @property (weak, nonatomic) IBOutlet UITextField *passWord;
 - (IBAction)loginBtn:(id)sender;
 - (IBAction)registerBtn:(id)sender;
 - (IBAction)findBtn:(id)sender;
+- (IBAction)sinaLogin:(id)sender;
+- (IBAction)qqLogin:(id)sender;
+- (IBAction)weChatLogin:(id)sender;
 
 
 @end
@@ -24,7 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     [Help keyBoardDownWithController:self];
 }
 - (void)keyBoardDown:(id)sender {
@@ -39,7 +43,7 @@
 
 - (IBAction)loginBtn:(id)sender {
     if ([self.userID.text isEqualToString:@""]||[self.passWord.text isEqualToString:@""]) {
-       [Help alert:@"请输入用户名、密码" andViewController:self];
+       [Help warning:@"请输入用户名、密码"];
     }else {
         [self dismissViewControllerAnimated:YES completion:nil];
         
@@ -53,8 +57,33 @@
 }
 
 - (IBAction)findBtn:(id)sender {
-    FindViewController *vc = Alloc(FindViewController);
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
+    Model(FindViewController);
+}
+
+- (IBAction)sinaLogin:(id)sender {
+    [self loginWithType:UMShareToSina];
+}
+
+- (IBAction)qqLogin:(id)sender {
+    [self loginWithType:UMShareToQQ];
+}
+
+- (IBAction)weChatLogin:(id)sender {
+    [self loginWithType:UMShareToWechatSession];
+}
+- (void)loginWithType:(NSString *)type {
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:type];
+    
+    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:type];
+            
+            NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
+            [Help saveUserInfoName:snsAccount.userName icon:snsAccount.iconURL token:snsAccount.accessToken];
+        }
+        
+    });
 }
 @end

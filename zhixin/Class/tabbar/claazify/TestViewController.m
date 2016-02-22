@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     kNavBackColor;
-    self.navigationItem.title = @"学习测评";
+    self.navigationItem.title = @"学习评价";
 }
 
 - (void)didReceiveMemoryWarning {

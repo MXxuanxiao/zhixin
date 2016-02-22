@@ -19,7 +19,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = kWhite;
     self.data = [NSMutableArray array];
-     [self createTableView];
+    [self createTableView];
+//    [self createEditButton];
     kNavBackColor;
     self.tableView.showsVerticalScrollIndicator = NO;
     // Do any additional setup after loading the view.
@@ -39,5 +40,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     return nil;
 }
-
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //删除单元格
+//    [self.data removeObjectAtIndex:indexPath.row];
+//    [self.tableView reloadData];
+}
 @end

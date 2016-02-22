@@ -35,7 +35,6 @@
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)createTableView {
     self.tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];

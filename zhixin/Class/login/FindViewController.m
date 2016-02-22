@@ -87,4 +87,8 @@
 - (IBAction)phone_btn:(id)sender {
     NG(@"phone");
 }
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

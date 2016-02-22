@@ -7,6 +7,7 @@
 //
 
 #import "AboutSetViewController.h"
+#import "MXAlertView.h"
 #import <SVProgressHUD.h>
 @interface AboutSetViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -30,14 +31,20 @@
 }
 #pragma mark --webView delegate
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [SVProgressHUD showWithStatus:@"正在加载。。。"];
+    [SVProgressHUD showWithStatus:@"正在加载..."];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [SVProgressHUD showSuccessWithStatus:@"加载成功"];
+    //[SVProgressHUD showSuccessWithStatus:@"加载成功"];
+    [SVProgressHUD dismiss];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.webView removeFromSuperview];
+    self.webView.delegate = nil;
+}
 
 @end

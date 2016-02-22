@@ -6,8 +6,8 @@
 //  Copyright © 2016年 MX. All rights reserved.
 //
 
-#import "MineFatherViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface SettingViewController : MineFatherViewController
+@interface SettingViewController : UIViewController
 
 @end

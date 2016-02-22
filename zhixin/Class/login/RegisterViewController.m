@@ -9,7 +9,6 @@
 #import "RegisterViewController.h"
 
 @interface RegisterViewController ()
-- (IBAction)cancle:(id)sender;
 - (IBAction)SMSCode:(id)sender;
 - (IBAction)register:(id)sender;
 
@@ -41,25 +40,18 @@
     [self.userName resignFirstResponder];
     [self.SMSCode resignFirstResponder];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)cancle:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (IBAction)SMSCode:(id)sender {
-    [Help alert:@"791272" andViewController:self];
+    [Help alert:@"791272"];
 }
 
 - (IBAction)register:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 @end

@@ -7,8 +7,10 @@
 //
 
 #import "MineSetViewController.h"
-
-@interface MineSetViewController () <UIPickerViewDataSource,UIPickerViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+#import <sys/types.h>
+#include <sys/sysctl.h>
+#import <UIImageView+WebCache.h>
+@interface MineSetViewController () <UIPickerViewDataSource,UIPickerViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 - (IBAction)didSelect:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UIImageView *icon;
@@ -24,6 +26,8 @@
 @property (strong, nonatomic) NSMutableArray *dataArray1;
 @property (strong, nonatomic) NSMutableArray *dataArray2;
 @property (nonatomic, assign) NSInteger flag;
+@property (nonatomic, assign) CGPoint oldCenter;
+@property (nonatomic, assign) CGPoint pickerCenter;
 
 @end
 
@@ -31,21 +35,61 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.data = [NSMutableArray array];
-    self.dataArray1 = [NSMutableArray array];
-    self.dataArray2 = [NSMutableArray array];
+    ((UIScrollView*)self.view).contentSize = CGSizeMake(0, 750);
+    ((UIScrollView*)self.view).delegate = self;
+    ((UIScrollView*)self.view).showsVerticalScrollIndicator = NO;
+    _oldCenter                = self.view.center;
+    self.data                 = [NSMutableArray array];
+    self.dataArray1           = [NSMutableArray array];
+    self.dataArray2           = [NSMutableArray array];
     self.navigationItem.title = @"个人设置";
     // Do any additional setup after loading the view from its nib.
     //self.tableView.delegate = self;
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] valueForKey:kUserInfo];
+    self.name.text = [dict valueForKey:kUserName];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:[dict objectForKey:kUserIcon]] placeholderImage:[UIImage imageNamed:@"icon120_120"]];
     [self createSaveBtn];
     [self createpickerView];
     [self creatrTap];
+    //
+    [Help keyBoardDownWithController:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDown:) name:UITextFieldTextDidEndEditingNotification object:nil];
+    //键盘隐藏时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHid) name:UIKeyboardWillHideNotification object:nil];
+    //键盘弹出时
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UITextFieldTextDidBeginEditingNotification object:nil];
+    
+
+}
+
+/**
+ *  键盘隐藏
+ */
+- (void)keyBoardWillHid {
+    NG(@"键盘隐藏");
+}
+/**
+ *  键盘弹出
+ */
+- (void)keyBoardWillShow:(id)sender {
+    self.pickerView.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+//键盘消失
+- (void)keyBoardDown:(id)sender {
+    self.pickerView.hidden = YES;
+    [self.name resignFirstResponder];
+    [self.occupation resignFirstResponder];
+    [self.company resignFirstResponder];
+    [self.reasons resignFirstResponder];
+    [self.mail resignFirstResponder];
+}
+
 - (void)createSaveBtn {
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(save:)];
     self.navigationItem.rightBarButtonItem = save;
@@ -56,8 +100,8 @@
     NG(@"保存");
 }
 - (IBAction)didSelect:(id)sender {
+    [self keyBoardDown:nil];
     UIButton *btn = (UIButton *)sender;
-    NG2(@"btn.tag -- %lu", btn.tag);
     switch (btn.tag-100) {
         case 0: {
             UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
@@ -129,6 +173,7 @@
     self.pickerView.backgroundColor = [UIColor colorWithRed:0.792 green:0.914 blue:0.949 alpha:1.000];
     [self.view addSubview:self.pickerView];
     self.pickerView.hidden = YES;
+    _pickerCenter = self.pickerView.center;
 }
 //pickerView delegate
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -155,6 +200,7 @@
     }else if (_flag == 300) {
         self.OldAddress.text = SF(@"%@", [self.dataArray1 objectAtIndex:row]);
     }
+   
 }
 
 - (IBAction)company:(id)sender {
@@ -171,7 +217,7 @@
         picker.sourceType = sourceType;
         [self presentViewController:picker animated:YES completion:nil];
     }else {
-        [Help alert:@"该设备不支持照相功能" andViewController:self];
+        [Help warning:@"该设备不支持照相功能"];
     }
 }
 //打开相册
@@ -259,5 +305,9 @@
     }
     return newimage;
 }
-
+#pragma mark UIscrollViewdelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat HI = scrollView.contentOffset.y;
+    self.pickerView.center = CGPointMake(_pickerCenter.x, _pickerCenter.y+HI);
+}
 @end

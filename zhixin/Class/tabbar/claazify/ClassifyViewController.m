@@ -7,7 +7,8 @@
 //
 
 #import "ClassifyViewController.h"
-
+#import "SSVideoPlayContainer.h"
+#import "SSVideoPlayController.h"
 @interface ClassifyViewController ()
 
 @end

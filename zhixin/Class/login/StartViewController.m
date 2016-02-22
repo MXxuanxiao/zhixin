@@ -10,7 +10,6 @@
 
 @interface StartViewController ()
 
-- (IBAction)click:(id)sender;
 @end
 
 @implementation StartViewController
@@ -35,7 +34,4 @@
 }
 */
 
-- (IBAction)click:(id)sender {
-    kMapNav(@"39.5,117.5", @"39,117");
-}
 @end

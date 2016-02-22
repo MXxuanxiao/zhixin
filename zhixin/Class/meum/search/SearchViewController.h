@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SearchViewController : UIViewController
-
+@property (nonatomic, assign)search searchType;
 @end

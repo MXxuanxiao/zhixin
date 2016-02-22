@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="EXU-Ke-Ajr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="EMN-tq-6kx">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--智学-->
@@ -13,6 +13,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ahd-g5-6CN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                             <view contentMode="scaleToFill" id="QMT-1z-8bw">
                                 <rect key="frame" x="0.0" y="67" width="320" height="330"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -170,6 +175,8 @@
                         <outlet property="footerTitle" destination="Pup-VX-27i" id="tGX-q0-7aq"/>
                         <outlet property="footerView" destination="w85-XI-LIn" id="YBL-Wd-uc3"/>
                         <outlet property="headerView" destination="QMT-1z-8bw" id="lbf-Nr-wuU"/>
+                        <outlet property="tableView" destination="ahd-g5-6CN" id="2BE-Xv-See"/>
+                        <outletCollection property="tableView" destination="ahd-g5-6CN" id="aUp-Zp-cKF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Faw-hS-s1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,8 +235,8 @@
         <!--智学-->
         <scene sceneID="bDh-V1-xAY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3a6-2S-e0F" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="智学" id="kx0-LD-Q3l"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3a6-2S-e0F" customClass="ProhibitViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="智学" image="error.png" id="kx0-LD-Q3l"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ovg-m2-FZv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -292,8 +299,8 @@
         <!--智信-->
         <scene sceneID="PTS-l8-cIl">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0dQ-gg-fvh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="智信" id="yJ5-QI-LLL"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0dQ-gg-fvh" customClass="ProhibitViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="智信" image="success.png" id="yJ5-QI-LLL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Hy-D0-IYz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -311,8 +318,8 @@
         <!--智会-->
         <scene sceneID="jPl-FD-a6W">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="McA-Uc-uR7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="智会" id="D7y-A6-cX5"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="McA-Uc-uR7" customClass="ProhibitViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="智会" image="info.png" id="D7y-A6-cX5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zP4-S5-0Sz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -330,8 +337,8 @@
         <!--我的-->
         <scene sceneID="gLF-4r-qE1">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9ed-97-eHr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" id="bLw-6n-8yi"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9ed-97-eHr" customClass="ProhibitViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="我的" image="info.png" id="bLw-6n-8yi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sza-zM-XTY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -348,6 +355,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="error.png" width="28" height="28"/>
+        <image name="info.png" width="28" height="28"/>
         <image name="qidong.png" width="375" height="667"/>
+        <image name="success.png" width="28" height="28"/>
     </resources>
 </document>

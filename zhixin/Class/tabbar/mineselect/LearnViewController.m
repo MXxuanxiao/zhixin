@@ -57,4 +57,8 @@
     [super viewDidDisappear:animated];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [self.data removeObjectAtIndex:indexPath.row];
+//    [self.tableView reloadData];
+}
 @end

@@ -19,7 +19,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self createTableView];
+    [self createBarBtn];
     self.tableView.showsVerticalScrollIndicator = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+       NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationController.navigationBar.barTintColor = kBlack;
     @weakify_self
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify_self
@@ -35,7 +40,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark barBtn 
+- (void)createBarBtn {
+    UIBarButtonItem *publish = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(publish:)];
+    [publish setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = publish;
+}
 
+- (void)publish:(id)sender {
+    NG(@"1");
+}
+
+#pragma mark tabelView
 - (void)createTableView {
     self.tableView  = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     self.tableView.dataSource = self;

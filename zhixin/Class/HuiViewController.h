@@ -6,8 +6,9 @@
 //  Copyright © 2016年 MX. All rights reserved.
 //
 
-#import "FatherViewController.h"
 
-@interface HuiViewController : FatherViewController
+#import <UIKit/UIKit.h>
+
+@interface HuiViewController : UIViewController
 
 @end

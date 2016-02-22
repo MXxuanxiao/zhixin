@@ -26,6 +26,7 @@
     [self createData];
     [self creatTableView];
     // Do any additional setup after loading the view.
+    self.navigationItem.rightBarButtonItems = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,7 +41,7 @@
     }
 }
 - (void)creatTableView {
-    self.tableView = [[UITableView alloc]initWithFrame:self.view.frame];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, kWidth, kHeight)];
     Delegate
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [UIView new];
@@ -91,7 +92,7 @@
             break;
         case 5:
         {
-            PushAndBool(SettingViewController, YES);
+            Push(SettingViewController);
         }
             break;
             
