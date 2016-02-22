@@ -1,0 +1,119 @@
+//
+//  PrefixHeader.pch
+//  zhixin
+//
+//  Created by yuxuezhi on 16/1/21.
+//  Copyright © 2016年 MX. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "Help.h"
+#import <SVProgressHUD.h>
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
+
+
+//宽高
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
+//融云
+#define kRCIMKey @"6tnym1brnazq7"
+#define kRCIMToken @"M8uDt0290ESdUJPR3B/I3WdNowSkZ38axvVxWHY9YZfQMqRZ6PTNl4sUE2xhqgGXmzs06/jxGxnPhGefjJALjQ=="
+
+//友盟
+#define kUMKey @"56ad666e67e58ed326000b2b"
+
+//导航栏高度
+#define kNavHeight (self.navigationController.navigationBar.frame.size.height+self.navigationController.navigationBar.frame.origin.y)
+
+//color
+#define kLight [UIColor lightGrayColor]
+#define kWhite [UIColor whiteColor]
+#define kBlack [UIColor blackColor]
+#define kClear [UIColor clearColor]
+
+//string
+#define StringFormat(_format,_arg) [NSString stringWithFormat:_format,_arg]
+#define SF(_format,_arg) StringFormat(_format,_arg)
+#define SF2(_format,_arg1,_arg2) [NSString stringWithFormat:_format,_arg1,_arg2]
+
+//UUID
+#define kUuid [UIDevice currentDevice].identifierForVendor.UUIDString
+
+//AD time
+#define kTime 1.5
+
+//NSLog
+#define NG(x)  NSLog(x)
+#define NG2(x,y) NSLog(x,y);
+
+//alloc
+#define Alloc(x) [[x alloc] init]
+
+//show
+#define Push(x) x *vc = Alloc(x); [self.navigationController pushViewController:vc animated:YES]
+#define Model(x) x *vc = Alloc(x); [self presentViewController:vc animated:YES completion:nil]
+
+#define PushAndBool(x,y) Alloc(x).isTableView = (y); [self.navigationController pushViewController:Alloc(x) animated:YES]
+
+//delegate
+#define Delegate self.tableView.dataSource = self;self.tableView.delegate = self;
+
+// openURL
+#define kOpenUrl(x) [[UIApplication sharedApplication] openURL:[NSURL URLWithString:x]]
+
+// 打开safari x打开的网址
+#define kSafari(x) kOpenUrl(SF(@"http://%@", x))
+
+//发送邮件 x接收邮件的邮箱
+#define kMail(x) kOpenUrl(SF(@"mailto://%@", x))
+
+//打电话 x想要打的号码
+#define kTel(x) kOpenUrl(SF(@"tel://%@", x))
+
+//发短信 x接收短信人的号码
+#define kSms(x) kOpenUrl(SF(@"sms://%@", x))
+
+//打开系统地图
+#define kMap kOpenUrl(@"map://")
+
+//打开系统导航 x 起始位置经纬度 y 终点位置经纬度 xy格式 维度,经度
+#define kMapNav(x,y) kOpenUrl(SF2(@"http://maps.apple.com/maps?saddr=%@&daddr=%@", x, y));
+
+//导航栏返回颜色
+#define kNavBackColor  self.navigationController.navigationBar.tintColor = kWhite
+
+//循环引用
+#ifndef    weakify_self
+#if __has_feature(objc_arc)
+#define weakify_self autoreleasepool{} __weak __typeof__(self) weakSelf = self;
+#else
+#define weakify_self autoreleasepool{} __block __typeof__(self) blockSelf = self;
+#endif
+#endif
+#ifndef    strongify_self
+#if __has_feature(objc_arc)
+#define strongify_self try{} @finally{} __typeof__(weakSelf) self = weakSelf;
+#else
+#define strongify_self try{} @finally{} __typeof__(blockSelf) self = blockSelf;
+#endif
+#endif
+
+
+//-(void)creatbariteam {
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStylePlain target:self action:@selector(click1:)];
+//    self.navigationItem.leftBarButtonItem = item;
+//    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
+//}
+//- (void)click1:(id)sender {
+//    //[self.navigationController popToRootViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+
+
+
+
