@@ -1,0 +1,8 @@
+platform:ios,'8.0'
+pod 'SDWebImage', '~> 3.7.3'
+pod 'LBXScan', '~> 1.1.1'
+pod 'RongCloudIMKit', '~> 2.4.5'
+pod 'AFNetworking', '~> 3.0.4'
+pod 'MJRefresh', '~> 3.1.0'
+pod 'UMengSocial', '~> 4.4'
+pod 'SVProgressHUD', '~> 2.0-beta8'
