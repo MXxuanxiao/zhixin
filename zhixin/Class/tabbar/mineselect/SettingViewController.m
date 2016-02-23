@@ -15,8 +15,9 @@
 #import "SafeSetViewController.h"
 #import "AboutSetViewController.h"
 #import "CacheSetViewController.h"
-@interface SettingViewController ()
-
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, strong)NSMutableArray *data;
+@property (nonatomic, strong)UITableView *tableView;
 @end
 
 @implementation SettingViewController
@@ -24,10 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"设置";
-    self.tableView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+    kNavBackColor;
+    self.data = [NSMutableArray array];
     [self createData];
+    [self createTableView];
     [self createFooterView];
     // Do any additional setup after loading the view.
+    self.navigationItem.rightBarButtonItem = nil;
+    self.tableView.editing = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,17 +40,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)createcbtnItem {
-    self.navigationItem.hidesBackButton = YES;
-    UIBarButtonItem *cancle = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStylePlain target:self action:@selector(click:)];
-    
-    self.navigationItem.leftBarButtonItem = cancle;
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    
-}
-- (void)click:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
 - (void)createData {
     NSArray *arr = @[@"个人设置",@"消息设置",@"隐私",@"功能",@"账号与安全",@"关于智信",@" 清除缓存"];
     for (int i = 0; i< 7; i++) {
@@ -54,6 +48,12 @@
     }
 }
 #pragma mark --delegate
+- (void)createTableView {
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, kWidth, kHeight)];
+    self.tableView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+    Delegate;
+    [self.view addSubview:self.tableView];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.data.count;
 }
@@ -99,7 +99,6 @@
             break;
            
         case 2: {
-//            Push(PrivacySetViewController);
             PrivacySetViewController *vc = [[PrivacySetViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -124,10 +123,7 @@
             break;
     }
 }
-//- (void)viewDidDisappear:(BOOL)animated {
-//    [super viewDidDisappear:animated];
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//}
+
 //清除缓存
 -(float)fileSizeAtPath:(NSString *)path{
     NSFileManager *fileManager=[NSFileManager defaultManager];
@@ -175,4 +171,5 @@
     [alert addAction:removeCache];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
 @end
