@@ -16,7 +16,6 @@
 #import "HelpCenterViewController.h"
 #import "USViewController.h"
 @interface XinViewController ()
-
 @end
 
 @implementation XinViewController
@@ -45,22 +44,12 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     self.tabBarController.tabBar.hidden = NO;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-- (void)createcbtnItem {
-    self.navigationItem.hidesBackButton = YES;
-    UIBarButtonItem *cancle = [[UIBarButtonItem alloc] initWithTitle:@"< 返回" style:UIBarButtonItemStylePlain target:self action:@selector(click:)];
-    
-    self.navigationItem.leftBarButtonItem = cancle;
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    
-}
-- (void)click:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)onSelectedTableRow:(RCConversationModelType)conversationModelType conversationModel:(RCConversationModel *)model atIndexPath:(NSIndexPath *)indexPath
@@ -72,6 +61,7 @@
     conversationVC.title = @"聊天";
     [self.navigationController pushViewController:conversationVC animated:YES];
 }
+#pragma mark menumBtn
 //添加导航栏按钮
 - (void)createitemButton {
     UIBarButtonItem *addBtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick:)];
@@ -118,10 +108,10 @@
     };
     [pop show];
 }
-
+#pragma mark Search
 - (void)searchClick:(id)sender {
-    SearchViewController *search = Alloc(SearchViewController);
-    [self presentViewController:search animated:YES completion:nil];
+    Push(SearchViewController);
+    vc.searchType = SEARCH_FRIEND;
     
 }
 //设置导航栏颜色
