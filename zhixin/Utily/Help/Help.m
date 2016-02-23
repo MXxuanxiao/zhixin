@@ -11,13 +11,13 @@
 @implementation Help
 
 
-+(void)alert:(NSString *)string andViewController:(UIViewController*)Vc; {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"通知" message:string preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancle= [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:cancle];
-    [Vc presentViewController:alert animated:YES completion:nil];
++(void)alert:(NSString *)string {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:string message:nil delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+    [alert show];
 }
-
++(void)warning:(NSString *)string {
+    [SVProgressHUD showInfoWithStatus:string];
+}
 
 + (void)scanWithViewController:(UIViewController*)viewController {
     //设置扫码区域参数设置
@@ -65,5 +65,12 @@
 }
 -(void)keyBoardDown:(id)sender {
     // 就是为了去掉警告
+}
++ (void)saveUserInfoName:(NSString *)userName icon:(NSString *)userIcon token:(NSString *)userToken {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:userName forKey:kUserName];
+    [dict setValue:userIcon forKey:kUserIcon];
+    [dict setValue:userToken forKey:kUserToken];
+    [[NSUserDefaults standardUserDefaults] setValue:dict forKey:kUserInfo];
 }
 @end
