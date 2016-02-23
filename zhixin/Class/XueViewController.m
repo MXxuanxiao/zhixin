@@ -65,7 +65,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.searchType = SEARCH_OTHERS;
     [self creatrTableView];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self.picView startScroll];
